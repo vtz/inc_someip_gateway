@@ -84,9 +84,7 @@ bazel_dep(name = "score_bazel_cpp_toolchains", version = "1.0.5", dev_dependency
 bazel_dep(name = "score_bazel_platforms", version = "1.3.0")
 
 bazel_dep(name = "score_toolchains_rust", version = "0.10.0", dev_dependency = True)
-
-bazel_dep(name = "score_rules_imagefs", version = "0.1.0")
-
+bazel_dep(name = "score_rules_imagefs", version = "0.1.0", dev_dependency = True)
 bazel_dep(name = "score_cpp_policies", version = "0.1.2", dev_dependency = True)
 
 # GCC Toolchains
@@ -319,7 +317,7 @@ exports_files(["flamegraph.pl", "stackcollapse-perf.pl"])
 # ============================================================================
 # Documentation
 # ============================================================================
-bazel_dep(name = "score_docs_as_code", version = "8.7.0")
+bazel_dep(name = "score_docs_as_code", version = "9.0.0")
 
 # ============================================================================
 # Communication Framework
@@ -404,6 +402,15 @@ http_archive(
     urls = [
         "https://github.com/COVESA/vsomeip/archive/refs/tags/3.6.1.tar.gz",
     ],
+)
+
+# Opt-in stack (--//score/someipd:stack=opensomeip). vsomeip above stays the default.
+# Pinned to the published v0.2.2 tag, whose MODULE.bazel declares 0.2.2.
+bazel_dep(name = "opensomeip", version = "0.2.2")
+git_override(
+    module_name = "opensomeip",
+    remote = "https://github.com/vtz/opensomeip.git",
+    tag = "v0.2.2",
 )
 
 # ============================================================================
